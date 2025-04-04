@@ -33,7 +33,7 @@ var storage = multer.diskStorage({
         const pokemon = await Pokemon.findByPk(req.params.id);
         if (!pokemon)
             callback(new Error("No pokemon with that id!"))
-        const filePath = `${req.params.id}/${req.params.user}`;
+        const filePath = `${req.params.user}/${req.params.id}`;
         req.publicFilePath = `/api/${filePath}`;
         fs.mkdirSync(`./src/public/${filePath}`, { recursive: true })
         callback(null, `./src/public/${filePath}`);

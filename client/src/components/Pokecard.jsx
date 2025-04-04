@@ -1,32 +1,24 @@
 import { useContext } from 'react';
 import UserContext from '../context/UserContext';
+import GetImage from './util/GetImage';
+import { Link } from 'react-router-dom';
 
 const Pokecard = ({ pokemon }) => {
     const { selectedUser } = useContext(UserContext);
+    const width = 63 * 2;
+    const height = 88 * 2;
 
-
-
-    //Gets appropriate img for context
-    const getImage = () => {
-        if (selectedUser === "Jesse") {
-            if (pokemon.jesselocation !== null && pokemon.jesselocation !== "") {
-                return (<img src={`http://localhost:1234${pokemon.jesselocation}`} width="200" height="200" />);
-            } else {
-                return (<img src={pokemon.defaultlocation} width="200" height="200" />)
-            }
-        } else {
-            if (pokemon.jasminelocation !== null && pokemon.jasminelocation !== "") {
-                return (<img src={`http://localhost:1234${pokemon.jasminelocation}`} width="200" height="200" />)
-            } else {
-                return (<img src={pokemon.defaultlocation} width="200" height="200" />);
-            }
-        }
-    }
     return (
         <div>
             <p>{pokemon.name}</p>
             <p>{pokemon.id}</p>
-            {getImage()}
+            <Link to={`pokemon/${pokemon.id}`}>
+                <GetImage
+                    selectedUser={selectedUser}
+                    pokemon={pokemon}
+                    width={width}
+                    height={height}
+                /></Link>
 
         </div>
     );

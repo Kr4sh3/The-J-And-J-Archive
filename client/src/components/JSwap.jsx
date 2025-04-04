@@ -8,7 +8,7 @@ const JSwap = () => {
     }
     return (
         <div id="JSwap">
-            <button onClick={handleClick} />
+            <button onClick={handleClick} >Swap</button>
         </div>)
 }
 export default JSwap;
