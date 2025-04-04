@@ -20,7 +20,7 @@ const PokeDetail = () => {
     const getPokeDetails = () => {
         (async () => {
             try {
-                const response = await fetch(`http://localhost:1234/api/pokemon/${id}`);
+                const response = await fetch(`http://24.59.84.130:8080/api/pokemon/${id}`);
                 const data = await response.json();
                 setPokemon(data);
             } catch (error) {
@@ -34,16 +34,22 @@ const PokeDetail = () => {
     useEffect(getPokeDetails, [id, navigate]);
 
     const handleFileChange = (event) => {
+        if (!authUser)
+            return;
         setSelectedFile(event.target.files[0]);
     };
 
     //Clicks file upload button, used for being able to click on card to upload image instead of a button
     const handleFileUploadClick = () => {
+        if (!authUser)
+            return;
         fileUploadRef.current.click()
     }
 
     //Prompts user for an image url for desired chase card
     const handlePromptChaseCard = () => {
+        if (!authUser)
+            return;
         const chaseUrl = prompt("Please enter the image url of your desired chase card!");
         setchasecard(chaseUrl);
     }
@@ -56,10 +62,10 @@ const PokeDetail = () => {
     }
 
     //Options for fetch post request to submit form
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!authUser)
+            return;
         const formData = new FormData();
         let submittingsomething = false;
         //Append formdata
@@ -85,7 +91,7 @@ const PokeDetail = () => {
                     "Authorization": `Basic ${authUser.encodedCredentials}`
                 }
             }
-            const res = await fetch(`http://localhost:1234/api/pokemon/${pokemon.id}/${selectedUser}`, options);
+            const res = await fetch(`http://24.59.84.130:8080/api/pokemon/${pokemon.id}/${selectedUser}`, options);
             const data = await res.json();
             alert(data);
             //Resets page
@@ -96,12 +102,14 @@ const PokeDetail = () => {
 
     const handleDelete = async (event) => {
         event.preventDefault();
+        if (!authUser)
+            return;
         //Cancel operation if no card owned
-        if(selectedUser === "Jesse"){
-            if(!pokemon.jessehas)
+        if (selectedUser === "Jesse") {
+            if (!pokemon.jessehas)
                 return alert("No card to be deleted!");
-        }else{
-            if(!pokemon.jasminehas)
+        } else {
+            if (!pokemon.jasminehas)
                 return alert("No card to be deleted!");
         }
         const confirm = prompt("Are you sure you want to get rid of this card? Type CONFIRM if you do");
@@ -112,7 +120,7 @@ const PokeDetail = () => {
                     "Authorization": `Basic ${authUser.encodedCredentials}`
                 }
             }
-            const res = await fetch(`http://localhost:1234/api/pokemon/${pokemon.id}/${selectedUser}`, options);
+            const res = await fetch(`http://24.59.84.130:8080/api/pokemon/${pokemon.id}/${selectedUser}`, options);
             const data = await res.json();
             alert(data);
             //Resets page
@@ -127,10 +135,13 @@ const PokeDetail = () => {
         </main>)
     return (<main>
         <form onSubmit={handleSubmit}>
-            <button type="submit" >Save</button>
-            <button onClick={handleDelete}>Delete</button>
+            {
+                //Authorized user only buttons
+                authUser ? <><button type="submit" >Save</button>
+                    <button onClick={handleDelete}>Delete</button></> : <></>}
+
             <h2>{pokemon.id} {pokemon.name}</h2>
-            <input type="file" onChange={handleFileChange} ref={fileUploadRef} />
+            <input type="file" onChange={handleFileChange} ref={fileUploadRef} capture="environment"/>
             {
                 //If we have a selected file to be uploaded, display it, otherwise display the appropriate image based on selected user
                 selectedFile ?
@@ -147,13 +158,13 @@ const PokeDetail = () => {
             {
                 //If we pending notes to be uploaded, display them, otherwise display notes based on selected user
                 notes ?
-                    <textarea onChange={(event) => { setnotes(event.target.value) }} />
+                    <textarea onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
                     :
                     <textarea value={selectedUser === "Jesse" ?
                         (pokemon.jessenote ? pokemon.jessenote : "")
                         :
                         (pokemon.jasminenote ? pokemon.jasminenote : "")}
-                        onChange={(event) => { setnotes(event.target.value) }} />
+                        onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser}/>
             }
             {
                 //If we pending chasecard to be uploaded, display it, otherwise display chasecard based on user

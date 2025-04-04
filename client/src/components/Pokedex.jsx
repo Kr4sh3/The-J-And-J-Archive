@@ -14,7 +14,7 @@ const Pokedex = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await fetch("http://localhost:1234/api/pokemon");
+                const response = await fetch("http://24.59.84.130:8080/api/pokemon");
                 const data = await response.json();
                 setPokemons(data);
             } catch (error) {

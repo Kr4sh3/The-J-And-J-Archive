@@ -23,7 +23,7 @@ export const UserProvider = (props) => {
         }
         //Attempt authentication, returning null if failed, and a user object if successful
         try {
-            const res = await fetch('http://localhost:1234/api/user', options);
+            const res = await fetch('http://24.59.84.130:8080/api/user', options);
             const data = await res.json();
             if (res.status === 200) {
                 const user = data;
