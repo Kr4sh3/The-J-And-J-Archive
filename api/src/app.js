@@ -2,6 +2,7 @@
 import express from 'express';
 import morgan from "morgan";
 import routes from './routes.js';
+import cors from 'cors';
 
 //Env variables
 const HOST = process.env.HOST;
@@ -11,6 +12,9 @@ const app = express();
 
 //HTTP request logging
 app.use(morgan('dev'));
+
+//enable cross origin resource sharing
+app.use(cors());
 
 //Home route
 app.get('/', (req, res) => {

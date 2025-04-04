@@ -48,7 +48,7 @@ const authenticateUser = async (req, res, next) => {
         return res.status(401).json({ message: 'Access Denied' });
     }
 
-    console.log(`Authentication successful for username: ${user.emailAddress}`);
+    console.log(`Authentication successful for username: ${user.name}`);
     req.currentUser = user;
     next();
 }
