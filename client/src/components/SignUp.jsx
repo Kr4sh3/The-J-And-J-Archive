@@ -77,7 +77,7 @@ const SignUp = () => {
                     <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" placeholder="Password" ref={password} />
                     <label htmlFor="confirmedPassword">Confirmed Password</label>
-                    <input id="confirmedPassword" name="confirmedPassword" type="text" placeholder="Confirm Password" ref={confirmedPassword} />
+                    <input id="confirmedPassword" name="confirmedPassword" type="password" placeholder="Confirm Password" ref={confirmedPassword} />
                     <button type="submit">Sign Up</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>

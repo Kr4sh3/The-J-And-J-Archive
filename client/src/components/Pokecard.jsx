@@ -10,8 +10,7 @@ const Pokecard = ({ pokemon }) => {
 
     return (
         <div>
-            <p>{pokemon.name}</p>
-            <p>{pokemon.id}</p>
+            <p>{pokemon.id} {pokemon.name}</p>
             <Link to={`pokemon/${pokemon.id}`}>
                 <GetImage
                     selectedUser={selectedUser}

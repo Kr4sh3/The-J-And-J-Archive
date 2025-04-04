@@ -85,10 +85,16 @@ router.get('/pokemon/:id', asyncHandler(async (req, res) => {
 router.post('/pokemon/:id/:user', authenticateUser, upload.any(), asyncHandler(async (req, res) => {
     const pokemon = await Pokemon.findByPk(req.params.id);
     if (!pokemon)
-        return res.send("Couldnt find a pokemon with that id!");
+        return res.json("Couldnt find a pokemon with that id!");
+    const root = "./src/public/";
     if (req.params.user === "Jesse") {
         if (req.publicFilePath) {
             pokemon.jessehas = true;
+            if (pokemon.jesselocation && pokemon.jesselocation !== `${req.publicFilePath}/${req.fileName}`)
+                fs.unlink(`${root}${pokemon.jesselocation.slice(5)}`, (err) => {
+                    if (err) throw err;
+                    console.log(`${root}${pokemon.jesselocation.slice(5)} was deleted!`);
+                })
             pokemon.jesselocation = `${req.publicFilePath}/${req.fileName}`;
         }
         if (req.body.note)
@@ -96,10 +102,15 @@ router.post('/pokemon/:id/:user', authenticateUser, upload.any(), asyncHandler(a
         if (req.body.chasecard)
             req.body.chasecard === "empty" ? pokemon.jessechasecard = null : pokemon.jessechasecard = req.body.chasecard;
         pokemon.save();
-        return res.send(`Jesse's information for ${pokemon.name} has now been updated!`);
+        return res.json(`Jesse's information for ${pokemon.name} has now been updated!`);
     } else if (req.params.user === "Jasmine") {
         if (req.publicFilePath) {
             pokemon.jasminehas = true;
+            if (pokemon.jasminelocation && pokemon.jasminelocation !== `${req.publicFilePath}/${req.fileName}`)
+                fs.unlink(`${root}${pokemon.jasminelocation.slice(5)}`, (err) => {
+                    if (err) throw err;
+                    console.log(`${root}${pokemon.jesselocation.slice(5)} was deleted!`);
+                })
             pokemon.jasminelocation = `${req.publicFilePath}/${req.fileName}`;
         }
         if (req.body.note)
@@ -107,9 +118,9 @@ router.post('/pokemon/:id/:user', authenticateUser, upload.any(), asyncHandler(a
         if (req.body.chasecard)
             req.body.chasecard === "empty" ? pokemon.jasminechasecard = null : pokemon.jasminechasecard = req.body.chasecard;
         pokemon.save();
-        return res.send(`Jasmine's information for ${pokemon.name} has now been updated!`);
+        return res.json(`Jasmine's information for ${pokemon.name} has now been updated!`);
     } else {
-        return res.send(`Incorrect url!`);
+        return res.json(`Incorrect url!`);
     }
 }));
 
@@ -117,7 +128,7 @@ router.post('/pokemon/:id/:user', authenticateUser, upload.any(), asyncHandler(a
 router.delete('/pokemon/:id/:user', authenticateUser, asyncHandler(async (req, res) => {
     const pokemon = await Pokemon.findByPk(req.params.id);
     if (!pokemon)
-        return res.send("Couldnt find a pokemon with that id!");
+        return res.json("Couldnt find a pokemon with that id!");
 
     const root = "./src/public/";
     if (req.params.user === "Jesse") {
@@ -130,7 +141,7 @@ router.delete('/pokemon/:id/:user', authenticateUser, asyncHandler(async (req, r
         pokemon.jesselocation = null;
         pokemon.jessehas = false;
         pokemon.save();
-        return res.send(`${pokemon.name} was successfully deleted!`);
+        return res.json(`${pokemon.name} was successfully deleted!`);
     } else if (req.params.user === "Jasmine") {
         const jasminelocation = pokemon.jasminelocation.slice(5);
         const filelocation = `${root}${jasminelocation}`;
@@ -141,9 +152,9 @@ router.delete('/pokemon/:id/:user', authenticateUser, asyncHandler(async (req, r
         pokemon.jasminelocation = null;
         pokemon.jasminehas = false;
         pokemon.save();
-        return res.send(`${pokemon.name} was successfully deleted!`);
+        return res.json(`${pokemon.name} was successfully deleted!`);
     } else {
-        return res.send(`Incorrect url!`);
+        return res.json(`Incorrect url!`);
     }
 }));
 
@@ -184,9 +195,9 @@ router.delete('/user/:user', authenticateUser, asyncHandler(async (req, res) => 
         if (user === null)
             return res.send("That user does not exist!");
         user.destroy();
-        return res.send(`${req.params.user} has been deleted!`);
+        return res.json(`${req.params.user} has been deleted!`);
     } catch (err) {
-        return res.send(err);
+        return res.json(err);
     }
 }));
 

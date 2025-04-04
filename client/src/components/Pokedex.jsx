@@ -10,6 +10,7 @@ const Pokedex = () => {
     const [numberToShow, setNumberToShow] = useState(20); //Used to limit the page to only showing 20 pokemon at a time
     const navigate = useNavigate();
 
+    //Get pokemon
     useEffect(() => {
         (async () => {
             try {
@@ -42,7 +43,7 @@ const Pokedex = () => {
 
 
     const handleChange = (event) => {
-        setSearch(event.target.value);
+        setSearch(event.target.value.toLowerCase().replace(/\s/g, ''));
     }
 
     //Update searchList
@@ -52,7 +53,7 @@ const Pokedex = () => {
         if (search === null || search === "")
             return setSearchedPokemons(pokemons);
         else {
-            const searchPokemons = pokemons.filter((pokemon) => pokemon.name.includes(search));
+            const searchPokemons = pokemons.filter((pokemon) => pokemon.name.includes(search) || search == pokemon.id);
             setSearchedPokemons(searchPokemons);
         }
     }, [search, pokemons])

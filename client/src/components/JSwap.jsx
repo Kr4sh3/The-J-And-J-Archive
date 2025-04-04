@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
-const JSwap = () => {
+const JSwap = ({ clearChanges }) => {
     const { actions } = useContext(UserContext);
 
     const handleClick = () => {
+        if(clearChanges)
+            clearChanges();
         actions.swapUser();
     }
     return (
