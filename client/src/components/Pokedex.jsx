@@ -22,7 +22,7 @@ const Pokedex = () => {
             }
         })()
 
-    }, []);
+    }, [navigate]);
 
     //Extend list when scrolling
     useEffect(() => {

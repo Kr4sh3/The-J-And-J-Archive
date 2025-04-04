@@ -56,7 +56,6 @@ export const UserProvider = (props) => {
         <UserContext.Provider value={{
             authUser,
             selectedUser,
-            TCG_API_KEY,
             actions:
             {
                 signIn,

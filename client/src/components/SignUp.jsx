@@ -53,7 +53,7 @@ const SignUp = () => {
             } else {
                 navigate("/error");
             }
-        } catch (error) {
+        } catch {
             navigate("/error");
         }
 
