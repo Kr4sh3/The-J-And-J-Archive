@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 const JSwap = ({ clearChanges }) => {
-    const { actions } = useContext(UserContext);
+    const { actions, selectedUser } = useContext(UserContext);
 
     const handleClick = () => {
         if(clearChanges)
@@ -10,7 +10,7 @@ const JSwap = ({ clearChanges }) => {
     }
     return (
         <div id="JSwap">
-            <button onClick={handleClick} >Swap</button>
+            <button onClick={handleClick} >{selectedUser}</button>
         </div>)
 }
 export default JSwap;
