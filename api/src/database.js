@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 
 const db = {};
 
-const sequelize = new Sequelize({ "dialect": "sqlite", "storage": "/app/static/jandjarchive.db" });
+const sequelize = new Sequelize({ "dialect": "sqlite", "storage": "./storage/jandjarchive.db" });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
