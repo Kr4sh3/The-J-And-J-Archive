@@ -14,7 +14,7 @@ const Pokedex = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await fetch("https://the-j-and-j-archive-production.up.railway.app/api/pokemon");
+                const response = await fetch("https://the-j-and-j-archive-backend-production.up.railway.app/api/pokemon");
                 const data = await response.json();
                 setPokemons(data);
             } catch (error) {
