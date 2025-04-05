@@ -24,7 +24,8 @@
   },
   "contributors": [],
   "scripts": {
-    "start": "nodemon --env-file .env ./src/app.js",
+    "start": "node ./src/app.js",
+    "dev": "nodemon --env-file .env ./src/app.js",
     "test": ""
   },
   "dependencies": {
