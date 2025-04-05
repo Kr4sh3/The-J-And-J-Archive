@@ -9,7 +9,7 @@ import authenticateUser from './auth-user.js';
 const router = express.Router();
 
 //Set static folder
-router.use(express.static(path.resolve(import.meta.dirname, 'volume/public')));
+router.use(express.static('/app/static'));
 
 //Helper function to get filename extension
 function getFileExtension(filename) {
@@ -35,8 +35,8 @@ var storage = multer.diskStorage({
             callback(new Error("No pokemon with that id!"))
         const filePath = `${req.params.user}/${req.params.id}`;
         req.publicFilePath = `/api/${filePath}`;
-        fs.mkdirSync(`./src/public/${filePath}`, { recursive: true })
-        callback(null, `./src/public/${filePath}`);
+        fs.mkdirSync(`/app/static/${filePath}`, { recursive: true })
+        callback(null, `/app/static/${filePath}`);
 
     },
     filename: async function (req, file, callback) {
