@@ -35,8 +35,8 @@ var storage = multer.diskStorage({
             callback(new Error("No pokemon with that id!"))
         const filePath = `${req.params.user}/${req.params.id}`;
         req.publicFilePath = `/api/${filePath}`;
-        fs.mkdirSync(`./storage/static${filePath}`, { recursive: true })
-        callback(null, `./storage/static${filePath}`);
+        fs.mkdirSync(`../storage/static${filePath}`, { recursive: true })
+        callback(null, `../storage/static${filePath}`);
 
     },
     filename: async function (req, file, callback) {
