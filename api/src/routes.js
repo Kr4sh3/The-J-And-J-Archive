@@ -9,7 +9,7 @@ import authenticateUser from './auth-user.js';
 const router = express.Router();
 
 //Set static folder
-router.use(express.static('../storage/static'));
+router.use(express.static('./storage/static'));
 
 //Helper function to get filename extension
 function getFileExtension(filename) {
@@ -35,8 +35,8 @@ var storage = multer.diskStorage({
             callback(new Error("No pokemon with that id!"))
         const filePath = `${req.params.user}/${req.params.id}`;
         req.publicFilePath = `/api/${filePath}`;
-        fs.mkdirSync(`../storage/static${filePath}`, { recursive: true })
-        callback(null, `../storage/static${filePath}`);
+        fs.mkdirSync(`./storage/static${filePath}`, { recursive: true })
+        callback(null, `./storage/static${filePath}`);
 
     },
     filename: async function (req, file, callback) {
@@ -86,7 +86,7 @@ router.post('/pokemon/:id/:user', authenticateUser, upload.any(), asyncHandler(a
     const pokemon = await Pokemon.findByPk(req.params.id);
     if (!pokemon)
         return res.json("Couldnt find a pokemon with that id!");
-    const root = "./src/public/";
+    const root = "./storage/static/";
     if (req.params.user === "Jesse") {
         if (req.publicFilePath) {
             pokemon.jessehas = true;
@@ -130,7 +130,7 @@ router.delete('/pokemon/:id/:user', authenticateUser, asyncHandler(async (req, r
     if (!pokemon)
         return res.json("Couldnt find a pokemon with that id!");
 
-    const root = "./src/public/";
+    const root = "./storage/static/";
     if (req.params.user === "Jesse") {
         const jesselocation = pokemon.jesselocation.slice(5);
         const filelocation = `${root}${jesselocation}`;
