@@ -88,7 +88,6 @@ const PokeDetail = () => {
                 method: "POST",
                 body: formData,
                 headers: {
-                    "Access-Control-Allow-Origin" : "*",
                     "Authorization": `Basic ${authUser.encodedCredentials}`
                 }
             }

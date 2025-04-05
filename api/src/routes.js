@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
+import fs, { appendFile } from 'fs';
 import { User, Pokemon } from './models/index.js'
 import authenticateUser from './auth-user.js';
 

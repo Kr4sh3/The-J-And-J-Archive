@@ -19,7 +19,6 @@ export const UserProvider = (props) => {
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 "Authorization": `Basic ${encodedCredentials}`,
-                "Access-Control-Allow-Origin" : "*",
             }
         }
         //Attempt authentication, returning null if failed, and a user object if successful

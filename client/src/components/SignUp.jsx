@@ -36,9 +36,6 @@ const SignUp = () => {
         const options = {
             method: "POST",
             body: formData,
-            headers: {
-                "Access-Control-Allow-Origin" : "*",
-            }
         }
 
         //Post user object, signing them in if successful, and showing errors is unsuccessful

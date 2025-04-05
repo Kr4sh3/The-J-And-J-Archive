@@ -10,11 +10,21 @@ const PORT = process.env.PORT;
 
 const app = express();
 
+//enable cross origin resource sharing
+app.use(cors({origin: true,credentials: true}));
+
 //HTTP request logging
 app.use(morgan('dev'));
 
-//enable cross origin resource sharing
-app.use(cors());
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+      );
+    next();
+});
 
 //Home route
 app.get('/', (req, res) => {
