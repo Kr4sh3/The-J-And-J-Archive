@@ -204,7 +204,7 @@ router.delete('/user/:user', authenticateUser, asyncHandler(async (req, res) => 
 
 //Setup calls
 
-
+/*
 function isEmptyArray(arr) {
     return Array.isArray(arr) && arr.length === 0;
 }
@@ -240,7 +240,7 @@ const recursivePokemonFetch = async (next) => {
                 })
                 return locationData;
             });
-            */
+            *//*
             data.results.map((pokemon, index) => {
                 Pokemon.create({
                     name: pokemon.name, jessehas: false, jasminehas: false
@@ -254,16 +254,16 @@ const recursivePokemonFetch = async (next) => {
             console.log('Fetch error: ', error);
         });
 }
+*/
 
-
-
+/*
 //Seed database
 router.get('/pokemon/seed', asyncHandler(async (req, res) => {
     recursivePokemonFetch('https://pokeapi.co/api/v2/pokemon/');
     res.json("Database seeded!");
 }));
 
-
+*/
 
 //Drop all unnecessary pokemon
 router.delete('/pokemon/dropextra', authenticateUser, asyncHandler(async (req, res) => {
@@ -274,7 +274,7 @@ router.delete('/pokemon/dropextra', authenticateUser, asyncHandler(async (req, r
     res.send("Extras dropped!");
 }));
 
-
+/*
 
 //Add default image for pokemon
 router.put('/pokemon/default/:id', upload.none(), authenticateUser, asyncHandler(async (req, res) => {
@@ -283,6 +283,6 @@ router.put('/pokemon/default/:id', upload.none(), authenticateUser, asyncHandler
     pokemon.save();
     res.send("Pokemon Default Updated!");
 }));
-
+*/
 
 export default router;
