@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Pokecard from './Pokecard';
 import JSwap from './JSwap';
@@ -7,7 +7,7 @@ const Pokedex = () => {
     const [search, setSearch] = useState("");
     const [pokemons, setPokemons] = useState(null);
     const [searchedPokemons, setSearchedPokemons] = useState([]);
-    const [numberToShow, setNumberToShow] = useState(20); //Used to limit the page to only showing 20 pokemon at a time
+    const [numberToShow, setNumberToShow] = useState(40); //Used to limit the page to only showing 20 pokemon at a time
     const navigate = useNavigate();
 
     //Get pokemon
@@ -28,8 +28,9 @@ const Pokedex = () => {
     //Extend list when scrolling
     useEffect(() => {
         const handleScroll = () => {
-            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-                setNumberToShow(numberToShow + 20);
+            //Bootstrap for some reason changes one of these so we have to shorten the offsetHeight just a bit to make sure this triggers at the bottom of the page
+            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 40) {
+                setNumberToShow(numberToShow + 40);
             }
         };
 
@@ -57,23 +58,24 @@ const Pokedex = () => {
             setSearchedPokemons(searchPokemons);
         }
     }, [search, pokemons])
+    
 
     if (!pokemons)
         return (<main>
             <h1>Loading...</h1>
         </main>)
     return (
-        <main>
-            <form id="SearchBar" onSubmit={(event) => { event.preventDefault(); }}>
-                <input placeholder="Search..." onChange={handleChange} />
+        <main id="main">
+            <form id="search-form" onSubmit={(event) => { event.preventDefault(); }}>
+                <input id="search-input" placeholder="Search..." onChange={handleChange} />
             </form>
-            <div id="Pokedex">
+            <div id="pokedex">
                 {
                     searchedPokemons.map((pokemon, index) => {
                         if (index > numberToShow)
                             return;
                         else
-                            return (<Pokecard key={pokemon.id} pokemon={pokemon} />);
+                            return (<Pokecard key={pokemon.id} pokemon={pokemon} isDetail={false} isUnsaved={false}/>);
                     })}
             </div>
             <JSwap />

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
-import GetImage from "./util/GetImage";
+import Pokecard from "./Pokecard";
 import JSwap from "./JSwap";
 
 const PokeDetail = () => {
@@ -130,48 +130,43 @@ const PokeDetail = () => {
     }
 
     if (!pokemon)
-        return (<main>
-            <h1>Loading...</h1>
+        return (<main id="main">
+            <p className="poke-loading">Loading...</p>
         </main>)
-    return (<main>
-        <form onSubmit={handleSubmit}>
+    return (<main id="main">
+        <form id="poke-detail" onSubmit={handleSubmit}>
             {
                 //Authorized user only buttons
-                authUser ? <><button type="submit" >Save</button>
-                    <button onClick={handleDelete}>Delete</button></> : <></>}
-
-            <h2>{pokemon.id} {pokemon.name}</h2>
-            <input type="file" onChange={handleFileChange} ref={fileUploadRef} capture="environment"/>
+                authUser ? <div id="poke-edit"><button id="poke-save" type="submit" >Save</button>
+                    <button id="poke-delete" onClick={handleDelete}>Delete</button></div> : <></>
+            }
+            <input type="file" onChange={handleFileChange} ref={fileUploadRef} capture="environment" hidden />
             {
                 //If we have a selected file to be uploaded, display it, otherwise display the appropriate image based on selected user
                 selectedFile ?
-                    <img src={URL.createObjectURL(selectedFile)} width={width} height={height} onClick={handleFileUploadClick} />
+                    <Pokecard pokemon={pokemon} isDetail={true} onClick={handleFileUploadClick} src={URL.createObjectURL(selectedFile)} isUnsaved={true} width={width} height={height} />
                     :
-                    <GetImage
-                        selectedUser={selectedUser}
-                        pokemon={pokemon}
-                        width={width}
-                        height={height}
-                        onClick={handleFileUploadClick}
-                    />
+                    <Pokecard pokemon={pokemon} isDetail={true} onClick={handleFileUploadClick} isUnsaved={false} width={width} height={height} />
             }
+            <div id="notechase">
             {
                 //If we pending notes to be uploaded, display them, otherwise display notes based on selected user
                 notes ?
-                    <textarea onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
+                    <textarea className="poke-text" onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
                     :
-                    <textarea value={selectedUser === "Jesse" ?
+                    <textarea className="poke-text" value={selectedUser === "Jesse" ?
                         (pokemon.jessenote ? pokemon.jessenote : "")
                         :
                         (pokemon.jasminenote ? pokemon.jasminenote : "")}
-                        onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser}/>
+                        onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
             }
             {
                 //If we pending chasecard to be uploaded, display it, otherwise display chasecard based on user
-                chasecard ? <img width={width / 3} height={height / 3} src={chasecard} onClick={handlePromptChaseCard} /> :
-                    <img width={width / 3} height={height / 3} src={selectedUser === "Jesse" ? pokemon.jessechasecard : pokemon.jasminechasecard} onClick={handlePromptChaseCard} />
+                chasecard ? <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={chasecard} onClick={handlePromptChaseCard} /> :
+                    <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={selectedUser === "Jesse" ? pokemon.jessechasecard : pokemon.jasminechasecard} onClick={handlePromptChaseCard} />
 
             }
+            </div>
         </form>
         <JSwap clearChanges={clearChanges} />
     </main>);

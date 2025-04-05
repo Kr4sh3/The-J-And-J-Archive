@@ -43,17 +43,23 @@ const SignIn = () => {
     }
 
     return (
-        <main>
-            <div className="">
+        <main id="main">
+            <div className="sign-in">
                 <h2>Sign In</h2>
                 <ErrorsDisplay errors={errors} />
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="emailAddress">Email Address</label>
+                    <div>
+                    <label htmlFor="emailAddress">Email Address:</label>
                     <input id="emailAddress" name="emailAddress" type="email" ref={emailAddress} placeholder="Email" />
-                    <label htmlFor="password">Password</label>
+                    </div>
+                    <div>
+                    <label htmlFor="password">Password:</label>
                     <input id="password" name="password" type="password" ref={password} placeholder="Password" />
+                    </div>
+                    <div>
                     <button type="submit">Sign In</button>
                     <button onClick={handleCancel}>Cancel</button>
+                    </div>
                 </form>
                 <p>Resetting your password? Click here to <Link to="/SignUp">sign up</Link>!</p>
             </div>

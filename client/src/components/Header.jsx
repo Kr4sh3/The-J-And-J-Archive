@@ -1,19 +1,19 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 const Header = () => {
     const { authUser } = useContext(UserContext);
     return (
-        <header>
-            <h1><Link to="/">The J & J Archive</Link></h1>
-            <nav>
-                <ul>
+        <header id="header">
+            <Link to="/"><h1 id="title">The J & J Archive</h1></Link>
+            <nav id="nav">
+                <ul id="nav-list">
                     {
                         authUser ?
-                            <li>Welcome {authUser.name}</li>
+                            <li id="nav-welcome">Welcome {authUser.name}</li>
                             :
-                            <li><Link to="/signin">Sign In</Link></li>
+                            <li id="nav-signin"><Link to="/signin">Sign In</Link></li>
 
                     }
                 </ul>

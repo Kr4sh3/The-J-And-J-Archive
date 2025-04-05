@@ -65,21 +65,31 @@ const SignUp = () => {
     }
 
     return (
-        <main>
-            <div>
+        <main id="main">
+            <div className="sign-up">
                 <h2>Sign Up</h2>
                 <ErrorsDisplay errors={errors} />
                 <form onSubmit={handleSubmit}>
+                    <div>
                     <label htmlFor="name">Name</label>
                     <input id="name" name="name" type="text" placeholder="Name" ref={name} />
+                    </div>
+                    <div>
                     <label htmlFor="emailAddress">Email Address</label>
                     <input id="emailAddress" name="emailAddress" type="email" placeholder="Email" ref={emailAddress} />
+                    </div>
+                    <div>
                     <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" placeholder="Password" ref={password} />
+                    </div>
+                    <div>
                     <label htmlFor="confirmedPassword">Confirmed Password</label>
                     <input id="confirmedPassword" name="confirmedPassword" type="password" placeholder="Confirm Password" ref={confirmedPassword} />
+                    </div>
+                    <div>
                     <button type="submit">Sign Up</button>
                     <button onClick={handleCancel}>Cancel</button>
+                    </div>
                 </form>
                 <p>Already have a user account? Click here to <Link to="/SignIn">sign in</Link>!</p>
             </div>

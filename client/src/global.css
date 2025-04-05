@@ -1,1 +1,253 @@
-@import "tailwindcss";
+@font-face {
+    font-family: 'PocketMonk';
+    src: url('../PocketMonk-15ze.ttf');
+}
+
+* {
+    /* Makes padding and borders part of an element's actual size so width and height take into account both */
+    box-sizing: border-box;
+}
+
+:root {
+    /* Constants */
+    --header-height: 6rem;
+    --pokedex-color: rgb(218, 23, 23);
+    --search-bar-height: 2rem;
+    --margin: 2rem;
+    --background-color: rgb(59, 59, 59);
+}
+
+.fix-to-bottom-left {
+    position: fixed;
+    bottom: 2.5%;
+    left: 2.5%;
+}
+
+#Jswap{
+    width: fit-content;
+    height: fit-content;
+    z-index: 1;
+}
+
+#JSwap-button{
+    border: none;
+    width: 4rem;
+    height: 4rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0%;
+    z-index: 1;
+}
+
+.Jesse{
+    background-color: green;
+}
+
+.Jasmine{
+    background-color:purple;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+#header {
+    position: fixed;
+    height: var(--header-height);
+    width: 100%;
+    display: flex;
+    background-color: var(--pokedex-color);
+    z-index: 2;
+    clip-path: polygon(100% 100%,60% 100%,50% 60%, 0% 60%, 0% 0%, 100% 0%);
+}
+
+#header a {
+    display: flex;
+    flex-basis: 50%;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+#title{
+    font-size: 1.5rem;
+}
+
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#nav-list a{
+    padding-top: 0;
+}
+
+#search-form {
+    position: fixed;
+    top: 4rem;
+    left: 1.2rem;
+    z-index: 2;
+    display: flex;
+}
+
+#search-form input {
+    height: var(--search-bar-height);
+    display: block;
+    width: 10rem;
+    border-radius: .5rem;
+    border: 0;
+    padding: 0;
+}
+
+#header h1 {
+    font-family: PocketMonk;
+}
+
+#main {
+    padding-top: var(--header-height);
+
+}
+
+#pokedex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    justify-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+#poke-detail{
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    padding-top: 1rem;
+}
+
+#poke-edit{
+    position: absolute;
+    top: 4rem;
+    left: 1rem;
+    width: 40%;
+    height: 2rem;
+    display: flex;
+}
+
+#poke-save{
+    flex-grow: 1;
+}
+
+#poke-delete{
+    flex-grow: 1;
+}
+
+.poke-text{
+    height: 100%;
+    border: 0;
+    padding: 0;
+}
+
+/* Poke Card */
+
+#pokedex .poke-card {
+    width: 160px;
+    
+}
+
+.poke-card{
+    justify-content: center;
+    display: flex;
+    position: relative;
+    width: fit-content;
+}
+
+.poke-image{
+    border-radius: 4%;
+}
+
+.dont-have{
+    filter: brightness(50%);
+}
+
+.poke-id-circle {
+    position: absolute;
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: block;
+    top: 5%;
+    left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.poke-name-background {
+    position: absolute;
+    padding: .3rem;
+    max-width: 6rem;
+    top: 5%;
+    right: 10%;
+    background-color: white;
+    border-radius: .3rem;
+}
+
+.poke-name{
+    text-transform: capitalize;
+}
+
+.has-indicator{
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: white;
+    bottom:5%;
+    right:5%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.has{
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.sign-in{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sign-in div{
+    gap: .5rem;
+    margin: .5rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.sign-up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sign-up div{
+    gap: .5rem;
+    margin: .5rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

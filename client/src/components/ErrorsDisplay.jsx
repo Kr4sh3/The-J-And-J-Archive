@@ -2,13 +2,11 @@ const ErrorsDisplay = ({ errors }) => {
     let errorsDisplay = null;
     if (errors.length) {
         errorsDisplay = (
-            <div>
-                <div>
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        {errors.map((error, i) => <li key={i}>{error}</li>)}
-                    </ul>
-                </div>
+            <div id="poke-error">
+                <h3 id="poke-error-title">Validation Errors</h3>
+                <ul id="poke-error-list">
+                    {errors.map((error, i) => <li className="poke-error-item" key={i}>{error}</li>)}
+                </ul>
             </div>
         );
     }
