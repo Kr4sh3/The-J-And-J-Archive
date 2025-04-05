@@ -14,7 +14,12 @@ const Pokedex = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await fetch("//24.59.84.130:8080/api/pokemon");
+                const options = {
+                    headers: {
+                        "Access-Control-Allow-Origin" : "*",
+                    }
+                }
+                const response = await fetch("//24.59.84.130:8080/api/pokemon", options);
                 const data = await response.json();
                 setPokemons(data);
             } catch (error) {
