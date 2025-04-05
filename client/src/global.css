@@ -167,6 +167,7 @@ body {
 
 .poke-image{
     border-radius: 4%;
+    filter: brightness(150%);
 }
 
 .dont-have{
