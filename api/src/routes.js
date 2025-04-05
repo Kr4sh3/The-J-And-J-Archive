@@ -204,7 +204,7 @@ router.delete('/user/:user', authenticateUser, asyncHandler(async (req, res) => 
 
 //Setup calls
 
-/*
+
 function isEmptyArray(arr) {
     return Array.isArray(arr) && arr.length === 0;
 }
@@ -218,6 +218,7 @@ const recursivePokemonFetch = async (next) => {
             return res.json();
         })
         .then(async (data) => {
+            /*
             const fetches = data.results.map((pokemon, index) => {
                 const tcg_api = `https://api.pokemontcg.io/v2/cards?q=name:${pokemon.name}`;
                 const tcgOptions = {
@@ -239,9 +240,10 @@ const recursivePokemonFetch = async (next) => {
                 })
                 return locationData;
             });
+            */
             data.results.map((pokemon, index) => {
                 Pokemon.create({
-                    name: pokemon.name, jessehas: false, jasminehas: false, defaultlocation: locations[index]
+                    name: pokemon.name, jessehas: false, jasminehas: false
                 })
             })
             if (data.next) {
@@ -252,17 +254,17 @@ const recursivePokemonFetch = async (next) => {
             console.log('Fetch error: ', error);
         });
 }
-*/
 
-/*
+
+
 //Seed database
-router.post('/pokemon/seed', authenticateUser, asyncHandler(async (req, res) => {
+router.get('/pokemon/seed', asyncHandler(async (req, res) => {
     recursivePokemonFetch('https://pokeapi.co/api/v2/pokemon/');
-    res.send("Database seeded!");
+    res.json("Database seeded!");
 }));
-*/
 
-/*
+
+
 //Drop all unnecessary pokemon
 router.delete('/pokemon/dropextra', authenticateUser, asyncHandler(async (req, res) => {
     for (let i = 1026; i <= 1302; i++) {
@@ -271,9 +273,9 @@ router.delete('/pokemon/dropextra', authenticateUser, asyncHandler(async (req, r
     }
     res.send("Extras dropped!");
 }));
-*/
 
-/*
+
+
 //Add default image for pokemon
 router.put('/pokemon/default/:id', upload.none(), authenticateUser, asyncHandler(async (req, res) => {
     const pokemon = await Pokemon.findByPk(req.params.id);
@@ -281,6 +283,6 @@ router.put('/pokemon/default/:id', upload.none(), authenticateUser, asyncHandler
     pokemon.save();
     res.send("Pokemon Default Updated!");
 }));
-*/
+
 
 export default router;
