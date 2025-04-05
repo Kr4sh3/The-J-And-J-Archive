@@ -30,10 +30,12 @@ app.use((req, res, next) => {
     next();
 });
 
+/*
 const httpsOptions = {
     cert: fs.readFileSync(path.join(import.meta.dirname, 'ssl', 'server.crt')),
     key: fs.readFileSync(path.join(import.meta.dirname, 'ssl', 'server.key'))
 }
+*/
 
 //Home route
 app.get('/', (req, res) => {
@@ -60,6 +62,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-https.createServer(httpsOptions, app).listen(PORT, HOST, () => {
-    console.log(`Server running on ${HOST}:${PORT}`);
-});
+app.listen(PORT, HOST, () => {
+    console.log(`Server listening at ${HOST}:${PORT}}`);
+})
