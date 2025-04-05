@@ -9,7 +9,7 @@ import authenticateUser from './auth-user.js';
 const router = express.Router();
 
 //Set static folder
-router.use(express.static('./storage/static'));
+router.use(express.static('../storage/static'));
 
 //Helper function to get filename extension
 function getFileExtension(filename) {
