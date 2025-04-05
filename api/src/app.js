@@ -3,6 +3,9 @@ import express from 'express';
 import morgan from "morgan";
 import routes from './routes.js';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import https from 'https';
 
 //Env variables
 const HOST = process.env.HOST;
@@ -16,6 +19,7 @@ app.use(cors({origin: true,credentials: true}));
 //HTTP request logging
 app.use(morgan('dev'));
 
+//Cross origin headers
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -25,6 +29,11 @@ app.use((req, res, next) => {
       );
     next();
 });
+
+const httpsOptions = {
+    cert: fs.readFileSync(path.join(import.meta.dirname, 'ssl', 'server.crt')),
+    key: fs.readFileSync(path.join(import.meta.dirname, 'ssl', 'server.key'))
+}
 
 //Home route
 app.get('/', (req, res) => {
@@ -51,6 +60,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, HOST, () => {
+https.createServer(httpsOptions, app).listen(PORT, HOST, () => {
     console.log(`Server running on ${HOST}:${PORT}`);
 });
