@@ -40,7 +40,7 @@ const SignUp = () => {
 
         //Post user object, signing them in if successful, and showing errors is unsuccessful
         try {
-            const response = await fetch("//24.59.84.130:8080/api/user", options);
+            const response = await fetch("https://the-j-and-j-archive-production.up.railway.app/api/user", options);
             const data = await response.json();
             console.log(data);
             if (response.status === 201) {

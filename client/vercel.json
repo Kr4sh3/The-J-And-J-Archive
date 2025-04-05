@@ -1,7 +1,0 @@
-{
-    "build": {
-      "env": {
-        "VERCEL_ROUTER_INCLUDE": "https://24.59.84.130:8080/*"
-      }
-    }
-  }

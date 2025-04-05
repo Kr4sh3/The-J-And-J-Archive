@@ -20,7 +20,7 @@ const PokeDetail = () => {
     const getPokeDetails = () => {
         (async () => {
             try {
-                const response = await fetch(`//24.59.84.130:8080/api/pokemon/${id}`);
+                const response = await fetch(`https://the-j-and-j-archive-production.up.railway.app/api/pokemon/${id}`);
                 const data = await response.json();
                 setPokemon(data);
             } catch (error) {
@@ -91,7 +91,7 @@ const PokeDetail = () => {
                     "Authorization": `Basic ${authUser.encodedCredentials}`
                 }
             }
-            const res = await fetch(`//24.59.84.130:8080/api/pokemon/${pokemon.id}/${selectedUser}`, options);
+            const res = await fetch(`https://the-j-and-j-archive-production.up.railway.app/api/pokemon/${pokemon.id}/${selectedUser}`, options);
             const data = await res.json();
             alert(data);
             //Resets page
@@ -120,7 +120,7 @@ const PokeDetail = () => {
                     "Authorization": `Basic ${authUser.encodedCredentials}`
                 }
             }
-            const res = await fetch(`//24.59.84.130:8080/api/pokemon/${pokemon.id}/${selectedUser}`, options);
+            const res = await fetch(`https://the-j-and-j-archive-production.up.railway.app/api/pokemon/${pokemon.id}/${selectedUser}`, options);
             const data = await res.json();
             alert(data);
             //Resets page
