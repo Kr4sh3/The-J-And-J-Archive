@@ -155,7 +155,6 @@ body {
 
 #pokedex .poke-card {
     width: 160px;
-    
 }
 
 .poke-card{
@@ -251,4 +250,12 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
+}
+
+#id-nav-container{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    gap: 1rem;
 }

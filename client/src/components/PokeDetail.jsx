@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import UserContext from "../context/UserContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import Pokecard from "./Pokecard";
 import JSwap from "./JSwap";
 
@@ -8,7 +8,6 @@ const PokeDetail = () => {
     const { id } = useParams();
     const { authUser, selectedUser } = useContext(UserContext);
     const [pokemon, setPokemon] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
     const [chasecard, setchasecard] = useState(null);
     const [notes, setnotes] = useState(null);
     const fileUploadRef = useRef();
@@ -33,10 +32,24 @@ const PokeDetail = () => {
     //Get pokedetails
     useEffect(getPokeDetails, [id, navigate]);
 
-    const handleFileChange = (event) => {
+    const handleFileChange = async (event) => {
         if (!authUser)
             return;
-        setSelectedFile(event.target.files[0]);
+        const formData = new FormData();
+        formData.append("file", event.target.files[0]);
+        const options = {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Authorization": `Basic ${authUser.encodedCredentials}`
+            }
+        }
+        const res = await fetch(`https://the-j-and-j-archive-backend-production.up.railway.app/api/pokemon/${pokemon.id}/${selectedUser}`, options);
+        const data = await res.json();
+        alert(data);
+        //Resets page
+        getPokeDetails();
+        clearChanges();
     };
 
     //Clicks file upload button, used for being able to click on card to upload image instead of a button
@@ -69,10 +82,6 @@ const PokeDetail = () => {
         const formData = new FormData();
         let submittingsomething = false;
         //Append formdata
-        if (selectedFile) {
-            formData.append("file", selectedFile);
-            submittingsomething = true;
-        }
         if (chasecard) {
             formData.append("chasecard", chasecard);
             submittingsomething = true;
@@ -141,33 +150,35 @@ const PokeDetail = () => {
                     <button id="poke-delete" onClick={handleDelete}>Delete</button></div> : <></>
             }
             <input type="file" onChange={handleFileChange} ref={fileUploadRef} capture="environment" hidden />
-            {
-                //If we have a selected file to be uploaded, display it, otherwise display the appropriate image based on selected user
-                selectedFile ?
-                    <Pokecard pokemon={pokemon} isDetail={true} onClick={handleFileUploadClick} src={URL.createObjectURL(selectedFile)} isUnsaved={true} width={width} height={height} />
-                    :
-                    <Pokecard pokemon={pokemon} isDetail={true} onClick={handleFileUploadClick} isUnsaved={false} width={width} height={height} />
-            }
+            <Pokecard pokemon={pokemon} isDetail={true} onClick={handleFileUploadClick} isUnsaved={false} width={width} height={height} />
             <div id="notechase">
-            {
-                //If we pending notes to be uploaded, display them, otherwise display notes based on selected user
-                notes ?
-                    <textarea className="poke-text" onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
-                    :
-                    <textarea className="poke-text" value={selectedUser === "Jesse" ?
-                        (pokemon.jessenote ? pokemon.jessenote : "")
+                {
+                    //If we pending notes to be uploaded, display them, otherwise display notes based on selected user
+                    notes ?
+                        <textarea className="poke-text" onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
                         :
-                        (pokemon.jasminenote ? pokemon.jasminenote : "")}
-                        onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
-            }
-            {
-                //If we pending chasecard to be uploaded, display it, otherwise display chasecard based on user
-                chasecard ? <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={chasecard} onClick={handlePromptChaseCard} /> :
-                    <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={selectedUser === "Jesse" ? pokemon.jessechasecard : pokemon.jasminechasecard} onClick={handlePromptChaseCard} />
+                        <textarea className="poke-text" value={selectedUser === "Jesse" ?
+                            (pokemon.jessenote ? pokemon.jessenote : "")
+                            :
+                            (pokemon.jasminenote ? pokemon.jasminenote : "")}
+                            onChange={(event) => { setnotes(event.target.value) }} readOnly={!authUser} />
+                }
+                {
+                    //If we pending chasecard to be uploaded, display it, otherwise display chasecard based on user
+                    chasecard ? <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={chasecard} onClick={handlePromptChaseCard} /> :
+                        <img className="poke-image poke-chase" width={width / 3} height={height / 3} src={selectedUser === "Jesse" ? pokemon.jessechasecard : pokemon.jasminechasecard} onClick={handlePromptChaseCard} />
 
-            }
+                }
             </div>
         </form>
+        <div id="id-nav-container">
+            <Link to={`/pokemon/${pokemon.id - 3}`}><button className="id-nav">-3</button></Link>
+            <Link to={`/pokemon/${pokemon.id - 2}`}><button className="id-nav">-2</button></Link>
+            <Link to={`/pokemon/${pokemon.id - 1}`}><button className="id-nav">-1</button></Link>
+            <Link to={`/pokemon/${pokemon.id + 1}`}><button className="id-nav">+1</button></Link>
+            <Link to={`/pokemon/${pokemon.id + 2}`}><button className="id-nav">+2</button></Link>
+            <Link to={`/pokemon/${pokemon.id + 3}`}><button className="id-nav">+3</button></Link>
+        </div>
         <JSwap clearChanges={clearChanges} />
     </main>);
 }
