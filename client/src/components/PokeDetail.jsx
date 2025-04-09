@@ -69,7 +69,6 @@ const PokeDetail = () => {
 
     //Clears changes on selected user swap to clear form
     const clearChanges = () => {
-        setSelectedFile(null);
         setnotes(null);
         setchasecard(null);
     }
